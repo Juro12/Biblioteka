@@ -1,0 +1,33 @@
+{% extends 'ksiazki/base.html' %}
+{% block title %}Czytelnicy – Biblioteka{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3 mb-0">Czytelnicy</h1>
+  <a href="{% url 'dodaj_czytelnika' %}" class="btn btn-success">Dodaj czytelnika</a>
+</div>
+<div class="card shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle mb-0">
+      <thead class="table-dark">
+        <tr><th>Imię</th><th>Nazwisko</th><th>E-mail</th><th>Numer karty</th><th class="text-end">Akcje</th></tr>
+      </thead>
+      <tbody>
+        {% for czytelnik in czytelnicy %}
+        <tr>
+          <td><a href="{% url 'szczegoly_czytelnika' czytelnik.pk %}">{{ czytelnik.imie }}</a></td>
+          <td>{{ czytelnik.nazwisko }}</td>
+          <td>{{ czytelnik.email }}</td>
+          <td>{{ czytelnik.numer_karty }}</td>
+          <td class="text-end text-nowrap">
+            <a href="{% url 'edytuj_czytelnika' czytelnik.pk %}" class="btn btn-sm btn-outline-primary">Edytuj</a>
+            <a href="{% url 'usun_czytelnika' czytelnik.pk %}" class="btn btn-sm btn-outline-danger">Usuń</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">Brak czytelników.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
